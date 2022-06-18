@@ -1,0 +1,10 @@
+name: "CI workflow"
+on: [push,pull_request]
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      name: Checkout
+    - name: List contents
+      run: "ls"
