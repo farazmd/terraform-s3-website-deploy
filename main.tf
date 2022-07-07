@@ -20,18 +20,18 @@ resource "aws_s3_bucket" "website_s3_bucket" {
 }
 
 resource "aws_s3_bucket_acl" "website_s3_bucket_acl" {
-  bucket = var.bucket_name
+  bucket = aws_s3_bucket.website_s3_bucket.id
   acl    = "private"
 }
 
 resource "aws_s3_bucket_website_configuration" "wesbite_s3_bucket_config" {
-  bucket = var.bucket_name
+  bucket = aws_s3_bucket.website_s3_bucket.id
   index_document {
     suffix = "index.html"
   }
 }
 resource "aws_s3_bucket_public_access_block" "website_bucket_public_access_block" {
-  bucket                  = var.bucket_name
+  bucket                  = aws_s3_bucket.website_s3_bucket.id
   ignore_public_acls      = true
   block_public_acls       = true
   restrict_public_buckets = true
@@ -39,7 +39,7 @@ resource "aws_s3_bucket_public_access_block" "website_bucket_public_access_block
 }
 
 resource "aws_s3_bucket_cors_configuration" "website" {
-  bucket = var.bucket_name
+  bucket = aws_s3_bucket.website_s3_bucket.id
 
   cors_rule {
     allowed_headers = var.website_cors_allowed_headers
